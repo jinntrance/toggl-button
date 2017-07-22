@@ -3,12 +3,11 @@
 'use strict';
 
 //Board view
-togglbutton.render('.board-card:not(.toggl)', {observe: true}, function (elem) {
+togglbutton.render('.post-it:not(.toggl)', {observe: true}, function (elem) {
   var link,
-    description = $('.panel-body .title', elem).textContent.trim(),
-    project = $('#board-header-title .title').textContent.trim().split('/');
-
-  project = project[project.length - 1];
+    description = $('.heading .title', elem).textContent.trim(),
+    project = $('.projects .title').textContent.trim(),
+    container = $('.heading .title', elem);
 
   link = togglbutton.createTimerLink({
     className: 'zube',
@@ -17,7 +16,7 @@ togglbutton.render('.board-card:not(.toggl)', {observe: true}, function (elem) {
     buttonType: 'minimal'
   });
 
-  $('.panel-body', elem).insertBefore(link, $('.title', elem));
+  container.insertBefore(link, $('.zube-number', elem));
 });
 
 
@@ -25,21 +24,22 @@ togglbutton.render('.board-card:not(.toggl)', {observe: true}, function (elem) {
 togglbutton.render('#card-modal-view:not(.toggl)', {observe: true}, function (elem) {
   var link,
     description = $('#card-title-container .content').textContent.trim(),
-    project = $('#board-header-title .title').textContent.trim().split('/');
+    project = $('title').textContent.split("|");
 
-  project = project[project.length - 1];
+  project = project[project.length - 1].trim();
 
   link = togglbutton.createTimerLink({
     className: 'zube',
     description: description,
-    projectName: project
+    projectName: project,
+    buttonType: 'minimal'
   });
 
-  $('.modal-header', elem).insertBefore(link, $('.close', elem));
+  $('.modal-header div', elem).insertBefore(link, $('.number', elem));
 });
 
 //Ticket detail view
-togglbutton.render('#tickets-title-container:not(.toggl)', {observe: true}, function (elem) {
+togglbutton.render('#tickets-show-main-container:not(.toggl)', {observe: true}, function (elem) {
   var link,
     description = function () {
       var desc = $('.content', elem);
@@ -49,7 +49,7 @@ togglbutton.render('#tickets-title-container:not(.toggl)', {observe: true}, func
 
       return "";
     },
-    project = $('#board-header-title .title').textContent.trim().split('/');
+    project = $('.projects .title').textContent.trim().split('/');
 
   project = project[project.length - 1];
 
